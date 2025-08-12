@@ -1,10 +1,15 @@
 using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class WinOnCollission : MonoBehaviour
 {
-    public string[] winMessage;
+    private string sceneName;
+
+    private void Start()
+    {
+        sceneName = SceneManager.GetActiveScene().name;
+    }
 
     private void OnTriggerEnter2D(Collider2D trig)
     {
@@ -15,8 +20,7 @@ public class WinOnCollission : MonoBehaviour
         
         if (trig.gameObject.CompareTag("Player"))
         {
-            GameMNGR.instance.EnableWinScreen(winMessage[Random.Range(0, winMessage.Length)]);
-            Time.timeScale = 0;
+            SceneManager.LoadScene(sceneName);
         }
     }
 
